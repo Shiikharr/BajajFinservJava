@@ -1,7 +1,7 @@
 package assignment1;
 
 import java.util.Scanner;
-public class q2SwapNumbers {
+public class Q2SwapNumbers {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
