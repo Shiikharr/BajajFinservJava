@@ -1,4 +1,4 @@
-package casestudy1;
+package casestudySingleInheritance;
 public class Person {
 	
 	private String name;

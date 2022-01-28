@@ -1,4 +1,4 @@
-package casestudy1;
+package casestudySingleInheritance;
 import java.util.Scanner;
 public class Main {
 

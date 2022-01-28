@@ -1,4 +1,4 @@
-package casestudy1;
+package casestudySingleInheritance;
 public class Donor extends Person {
 	
 	//Creating a non parameterized constructor
