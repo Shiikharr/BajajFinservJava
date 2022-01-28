@@ -108,8 +108,8 @@ public class Main {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-					
 					break;
+					
 				case 3:
 					System.out.println("====================Welcome Admin====================");
 					System.out.println("Press 1 to Add a product");
@@ -152,16 +152,21 @@ public class Main {
 						int j=sc.nextInt();
 						k=j;
 					}while(k!=0);
+					break;
+					default:
+						System.out.println("Invalid option");
 			}
 			System.out.println("====================Welcome To Online shopping====================");
 			System.out.println("Press 1 to Register as new user.");
 			System.out.println("Press 2 to Login as User");
 			System.out.println("Press 3 to Login as Admin");
+			System.out.println("Press 0 to Exit");
 			System.out.println("==================================================================");
 			int x=sc.nextInt();
 			choice = x;
 		}while(choice!=0);
-		System.out.println("========Thankyou for shopping========");
+		
+		System.out.println("====================Thankyou for shopping==========================");
 	}
 
 }
