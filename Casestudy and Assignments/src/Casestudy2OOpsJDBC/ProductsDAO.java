@@ -90,4 +90,28 @@ public class ProductsDAO
 			e.printStackTrace();
 		}
 	}
+	public void buyItemFromCart(String buyName, String productName)throws Exception
+	{
+		try{
+			String query = "delete from cart where buyer_name = '"+buyName+"' and product_name = '"+productName+"'";
+			Statement st = con.createStatement();
+			st.executeUpdate(query);
+			}
+		catch(Exception e)
+		{
+			System.out.println("buyItemFromCart caused exception.");
+		}
+	}
+	public void buyAllItems(String buyName)throws Exception
+	{
+		try{
+			String query = "delete from cart where buyer_name = '"+buyName+"'";
+			Statement st = con.createStatement();
+			st.executeUpdate(query);
+			}
+		catch(Exception e)
+		{
+			System.out.println("buyItemFromCart caused exception.");
+		}
+	}
 }

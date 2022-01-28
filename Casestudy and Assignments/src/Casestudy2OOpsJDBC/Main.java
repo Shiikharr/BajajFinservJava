@@ -25,7 +25,8 @@ public class Main {
 					ob.setPassword(sc1.nextLine());
 					System.out.println("Enter Email");
 					ob.setEmail(sc1.nextLine());
-					System.out.println("Enter Address");					ob.setAddress(sc1.nextLine());
+					System.out.println("Enter Address");					
+					ob.setAddress(sc1.nextLine());
 					UsersDAO ud = new UsersDAO();
 				try {
 					ud.connect();
@@ -41,9 +42,13 @@ public class Main {
 				case 2:
 					UsersDAO d1 = new UsersDAO();
 					Scanner sc2 = new Scanner(System.in);
+					System.out.println("==================");
 					System.out.println("Enter your Email:");
+					System.out.println("==================");
 					String uemail = sc2.nextLine();
+					System.out.println("====================");
 					System.out.println("Enter your password:");
+					System.out.println("====================");
 					String upass = sc2.nextLine();
 					
 					try 
@@ -71,7 +76,9 @@ public class Main {
 											break;
 										case 2:
 											ProductsDAO pd2 = new ProductsDAO();
+											System.out.println("=======================================");
 											System.out.println("Select a product by entering it's PID: ");
+											System.out.println("=======================================");
 											Scanner sc3 = new Scanner(System.in);
 											int pid = sc.nextInt();
 											pd2.connect();
@@ -87,6 +94,37 @@ public class Main {
 											ProductsDAO pd3 = new ProductsDAO();
 											pd3.connect();
 											pd3.displayCart(u1.name);
+											Scanner sc4 = new Scanner(System.in);
+											System.out.println("======================================");
+											System.out.println("Press 1 to buy a specific item.");
+											System.out.println("Press 2 to buy all items in the cart.");
+											System.out.println("======================================");
+											Scanner sc5 = new Scanner(System.in);
+											int b = sc5.nextInt();
+											switch(b)
+											{
+											case 1:
+												System.out.println("=======================================");
+												System.out.println("Enter the product name you wish to buy:");
+												System.out.println("=======================================");
+												Scanner sc6 = new Scanner(System.in);
+												String buyingProduct = sc6.nextLine();
+												pd3.buyItemFromCart(u1.name, buyingProduct);
+												System.out.println("you successfully bought "+buyingProduct+" item/s");
+												System.out.println("Cart after buying.");
+												pd3.displayCart(u1.name);
+												break;
+											case 2:
+												pd3.buyAllItems(u1.name);
+												System.out.println("====================================================");
+												System.out.println("Congratulations you bought everything from the cart.");
+												System.out.println("====================================================");
+												pd3.displayCart(u1.name);
+												break;
+											default:
+												System.out.println("Invalid choice");
+												break;
+											}
 											break;
 										default:
 											System.out.println("Invalid choice");
