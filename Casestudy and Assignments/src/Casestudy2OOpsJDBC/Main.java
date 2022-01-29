@@ -149,47 +149,121 @@ public class Main {
 					break;
 					
 				case 3:
-					System.out.println("====================Welcome Admin====================");
-					System.out.println("Press 1 to Add a product");
-					System.out.println("Press 2 to delete a product");
-					System.out.println("Press 3 to update a product");
-					System.out.println("Press 4 to remove a user");
-					System.out.println("Press 5 to add a user");
-					System.out.println("=====================================================");
-					int k=sc.nextInt();
-					do
+					//creating object of adminDAO to perform tasks by the admin
+					AdminDAO a1 = new AdminDAO();
+					Scanner sc7 = new Scanner(System.in);
+					System.out.println("==================");
+					System.out.println("Enter your Admin name:");
+					System.out.println("==================");
+					String aname = sc7.nextLine();
+					System.out.println("====================");
+					System.out.println("Enter your password:");
+					System.out.println("====================");
+					String apass = sc7.nextLine();
+					try
 					{
-						switch(k)
+						a1.connect();
+						if(apass.equals(a1.AuthAdmin(aname)))
 						{
-							case 1:
-								System.out.println("Add product");
-								break;
-							case 2:
-								System.out.println("Delete products");
-								break;
-							case 3:
-								System.out.println("Update Cart");
-								break;
-							case 4:
-								System.out.println("Remove user");
-								break;
-							case 5:
-								System.out.println("Add user");
-								break;
-							default:
-								System.out.println("Remove user");
-								break;
+							System.out.println("====================Welcome Admin: "+aname+"====================");
+							System.out.println("Press 1 to Add a product");
+							System.out.println("Press 2 to View products");
+							System.out.println("Press 3 to Delete a product");
+							System.out.println("Press 4 to Display Users");
+							System.out.println("Press 5 to add a user");
+							System.out.println("Press 6 to Remove a user");
+							System.out.println("Press 0 to Exit");
+							System.out.println("=====================================================");
+							int k=sc.nextInt();
+							do
+							{
+								switch(k)
+								{
+									case 1:
+										Scanner sc8 = new Scanner(System.in);
+										System.out.println("Enter the Product Name:");
+										String prod_name = sc8.nextLine();
+										System.out.println("Enter the Product Price");
+										String prod_price = sc8.nextLine();
+										//adding the product into the database
+										a1.addAProduct(prod_name, prod_price);
+										break;
+									case 2:
+										ProductsDAO pd4= new ProductsDAO();
+										pd4.connect();
+										System.out.println("Your Products are: ");
+										pd4.displayProducts();
+										break;
+									case 3:
+										Scanner sc9 = new Scanner(System.in);
+										ProductsDAO pd5 = new ProductsDAO();
+										System.out.println("Enter the name of the product to be deleted: ");
+										String prodd_name = sc9.nextLine();
+										a1.delAProduct(prodd_name);
+										System.out.println("Current Product list after deletion of "+prodd_name+" : ");
+										pd5.connect();
+										pd5.displayProducts();
+										break;
+									case 4:
+										System.out.println("The Users are: ");
+										a1.displayUsers();
+										break;
+									case 5:
+										UsersDAO u2 = new UsersDAO();
+										Scanner sc10 = new Scanner(System.in);
+										Users ob2 = new Users();
+										System.out.println("Enter Name");
+										ob2.setName(sc10.nextLine());
+										System.out.println("Enter Password");
+										ob2.setPassword(sc10.nextLine());
+										System.out.println("Enter Email");
+										ob2.setEmail(sc10.nextLine());
+										System.out.println("Enter Address");					
+										ob2.setAddress(sc10.nextLine());
+										try {
+											u2.connect();
+											u2.registerUser(ob2);
+											System.out.println("User Registered Successfully. Hello "+ob2.name);
+											} catch (Exception e) {
+												System.out.println(e+" :Exception thrown in adding user.");;
+											}	
+										break;
+									case 6:
+										Scanner sc11 = new Scanner(System.in);
+										System.out.println("Enter the name of the User to be deleted: ");
+										String user_name = sc11.nextLine();
+										a1.delAUser(user_name);
+										System.out.println("User deleted successfully.");
+										System.out.println("The Users are: ");
+										a1.displayUsers();
+										break;
+									default:
+										System.out.println("Invalid Choice.");
+										break;
+								}
+								System.out.println("=====================================================");
+								System.out.println("Press 1 to Add a product");
+								System.out.println("Press 2 to View products");
+								System.out.println("Press 3 to Delete a product");
+								System.out.println("Press 4 to Display Users");
+								System.out.println("Press 5 to add a user");
+								System.out.println("Press 6 to Remove a user");
+								System.out.println("Press 0 to Exit");
+								System.out.println("=====================================================");
+								int j=sc.nextInt();
+								k=j;
+							}while(k!=0);
 						}
-						System.out.println("=====================================================");
-						System.out.println("Press 1 to Add a product");
-						System.out.println("Press 2 to delete a product");
-						System.out.println("Press 3 to update a product");
-						System.out.println("Press 4 to remove a user");
-						System.out.println("Press 5 to add a user");
-						System.out.println("=====================================================");
-						int j=sc.nextInt();
-						k=j;
-					}while(k!=0);
+						else
+						{
+							System.out.println("Invalid Admin name/password");
+						}
+					}
+					catch(Exception e)
+					{
+						System.out.println(e + " Exception cause in authorizing");
+					}
+					
 					break;
 					default:
 						System.out.println("Invalid option");
