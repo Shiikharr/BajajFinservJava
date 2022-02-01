@@ -29,7 +29,7 @@ Connection con = null;
 			return pass;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println(e+" exception caused by authAdmin");
+			System.out.println("Exception caused by authAdmin, wrong name");
 		}
 		return null;
 	}

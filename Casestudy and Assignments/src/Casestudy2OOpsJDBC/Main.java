@@ -109,18 +109,51 @@ public class Main {
 												System.out.println("=======================================");
 												Scanner sc6 = new Scanner(System.in);
 												String buyingProduct = sc6.nextLine();
-												pd3.buyItemFromCart(u1.name, buyingProduct);
-												System.out.println("you successfully bought "+buyingProduct+" item/s");
-												System.out.println("Cart after buying.");
-												pd3.displayCart(u1.name);
+												//getting the price of the buying product and the shipping address
+												String buying_product_price = d1.getPriceOfEnteredItem(buyingProduct);
+												String shipping_address = d1.getShippingAddress(u1.name);
+												System.out.println("Your amount is: Rs "+buying_product_price+" & Shipping Address: "+shipping_address);
+												System.out.println("Are you sure you want to buy: "+buyingProduct+"?  [Type: YES/NO]");
+												String confirm_order = sc6.nextLine();
+												if(confirm_order.equalsIgnoreCase("yes"))
+												{
+													pd3.buyItemFromCart(u1.name, buyingProduct);
+													System.out.println("=================================================");
+													System.out.println("you successfully bought "+buyingProduct+" item/s");
+													System.out.println("Paid bill : Rs "+buying_product_price);
+													System.out.println("Your "+buyingProduct+" will be delivered in: "+shipping_address);
+													System.out.println("=================================================");
+													System.out.println("Cart after buying.");
+													pd3.displayCart(u1.name);
+													System.out.println("=================================================");
+												break;
+												}
+												else
+													System.out.println("Hope to see you soon!");
 												break;
 											case 2:
+												Scanner sc12 =new Scanner(System.in);
+												//getting the total cost 
+												String total_cost = d1.getTotalPrice(u1.name);
+												String shipping_add = d1.getShippingAddress(u1.name);
+												System.out.println("==============================================================");
+												System.out.println("Your total amount : Rs"+total_cost+" & Shipping Address: "+shipping_add);
+												System.out.println("Are you sure you want to buy all the products?  [Type: YES/NO]");
+												System.out.println("==============================================================");
+												String confirm_all = sc12.nextLine();
+												if(confirm_all.equalsIgnoreCase("yes"))
+												{
 												pd3.buyAllItems(u1.name);
 												System.out.println("====================================================");
 												System.out.println("Congratulations you bought everything from the cart.");
+												System.out.println("Paid bill: Rs "+total_cost);
+												System.out.println("Your Products will be delivered in: "+shipping_add);
 												System.out.println("====================================================");
 												pd3.displayCart(u1.name);
 												break;
+												}
+												else
+													System.out.println("Hope to see you soon!");
 											default:
 												System.out.println("Invalid choice");
 												break;
@@ -187,6 +220,7 @@ public class Main {
 										String prod_price = sc8.nextLine();
 										//adding the product into the database
 										a1.addAProduct(prod_name, prod_price);
+										System.out.println(prod_name+" added successfully.");
 										break;
 									case 2:
 										ProductsDAO pd4= new ProductsDAO();
@@ -200,6 +234,7 @@ public class Main {
 										System.out.println("Enter the name of the product to be deleted: ");
 										String prodd_name = sc9.nextLine();
 										a1.delAProduct(prodd_name);
+										System.out.println(prodd_name +" deleted successfully.");
 										System.out.println("Current Product list after deletion of "+prodd_name+" : ");
 										pd5.connect();
 										pd5.displayProducts();
@@ -223,7 +258,7 @@ public class Main {
 										try {
 											u2.connect();
 											u2.registerUser(ob2);
-											System.out.println("User Registered Successfully. Hello "+ob2.name);
+											System.out.println("User Registered Successfully. With Name: "+ob2.name);
 											} catch (Exception e) {
 												System.out.println(e+" :Exception thrown in adding user.");;
 											}	
@@ -232,6 +267,11 @@ public class Main {
 										Scanner sc11 = new Scanner(System.in);
 										System.out.println("Enter the name of the User to be deleted: ");
 										String user_name = sc11.nextLine();
+										//deleting the users cart items.
+										ProductsDAO pd6 = new ProductsDAO();
+										pd6.connect();
+										pd6.buyAllItems(user_name);
+										//deleting the user.
 										a1.delAUser(user_name);
 										System.out.println("User deleted successfully.");
 										System.out.println("The Users are: ");

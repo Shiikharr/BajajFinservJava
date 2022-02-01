@@ -75,4 +75,51 @@ public class UsersDAO
 		}
 		return null;
 	}
+	public String getTotalPrice(String buyer_name)throws Exception
+	{
+		try
+		{
+			String query = "select sum(price) from cart where buyer_name = '"+buyer_name+"'";
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			rs.next();
+			return rs.getString(1);
+		}
+		catch(Exception e)
+		{
+			System.out.println("Exception caused by getTotalPrice");
+		}
+		return null;
+	}
+	public String getPriceOfEnteredItem(String buying_product)
+	{
+		try
+		{
+			String query = "select price from cart where product_name = '"+buying_product+"'";
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			rs.next();
+			return rs.getString(1);
+		}
+		catch(Exception e)
+		{
+			System.out.println("Exception caused by getPriceOfEnteredItem");
+		}
+		return null;
+	}
+	public String getShippingAddress(String name)throws Exception
+	{
+		try 
+		{
+			String query = "select address from users where name = '"+name+"'";
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			rs.next();
+			return rs.getString(1);
+		}catch(Exception e)
+		{
+			System.out.println("Exception caused by getShippingAddress");
+		}
+		return null;
+	}
 }

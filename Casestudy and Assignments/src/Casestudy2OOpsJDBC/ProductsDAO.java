@@ -25,12 +25,10 @@ public class ProductsDAO
 		try {
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(query);
-			String userData = "";
-			System.out.println("PID\tProduct\tPrice");
+			
 			while(rs.next())
 			{
-				userData = rs.getInt(1)+ "\t" + rs.getString(2)+ ": Rs. " + rs.getString(3);
-				System.out.println(userData);
+				System.out.println("PID: "+rs.getInt(1)+"\tProduct: "+rs.getString(2)+"\tPrice: "+rs.getString(3));
 			}
 			
 		} catch (SQLException e) {
@@ -111,7 +109,7 @@ public class ProductsDAO
 			}
 		catch(Exception e)
 		{
-			System.out.println("buyItemFromCart caused exception.");
+			System.out.println("buyAllItems caused exception."+e);
 		}
 	}
 }
